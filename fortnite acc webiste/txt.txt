@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Showcase</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #2c0b3a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #3d144e;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        header a:hover {
+            color: #c084fc;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .card {
+            background: #3d144e;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            animation: cardFadeIn 0.7s forwards;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            margin: 0 0 10px;
+        }
+
+        .card-content p {
+            margin: 0 0 15px;
+            font-size: 0.9rem;
+        }
+
+        .card-content .price {
+            font-weight: bold;
+            color: #c084fc;
+        }
+
+        .card-content .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #c084fc;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .card-content .btn:hover {
+            background: #a855f7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #3d144e;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle, #3d144e, #2c0b3a);
+            overflow: hidden;
+        }
+
+        .background canvas {
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 50%;
+            color: #333;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal .price {
+            font-size: 1.5rem;
+            color: #c084fc;
+            font-weight: bold;
+        }
+
+        .paypal-button {
+            background-color: #0070ba;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            border: none;
+        }
+
+        .paypal-button:hover {
+            background-color: #005f8a;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">NEX</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Reviews</a>
+            <a href="#">FAQ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Explore Our Products</h1>
+        <p>We offer a wide range of cheats for your favorite games.</p>
+    </section>
+
+    <section class="products">
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200" alt="VMX Fortnite">
+            <div class="card-content">
+                <h3>VMX Fortnite</h3>
+                <p>Welcome to nex cheats! We offer tournament-winning cheats for Fortnite.</p>
+                <p class="price">&euro;7.99 - &euro;109.99</p>
+                <a href="#" class="btn" onclick="openModal('VMX Fortnite', '7.99 - 109.99')">Purchase</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://theeventchronicle.com/wp-content/uploads/2023/01/Get-Ready-To-Be-The-Champion-With-HWID-Changer.jpg" alt="Permanent Spoofer">
+            <div class="card-content">
+                <h3>Permanent Spoofer</h3>
+                <p>Get HWID unbanned with our reliable spoofer!</p>
+                <p class="price">€9.99</p>
+                <a href="#" class="btn" onclick="openModal('Permanent Spoofer', '9.99')">Purchase</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200" alt="Fortnite Private">
+            <div class="card-content">
+                <h3>Fortnite Private</h3>
+                <p>Requirements for VMX Fortnite Private. Works for all!</p>
+                <p class="price">&euro;0.00</p>
+                <a href="#" class="btn" onclick="openModal('Fortnite Private', '0.00')">Purchase</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200" alt="Temp Spoofer">
+            <div class="card-content">
+                <h3>Temp Spoofer</h3>
+                <p>The best temp spoofer to keep you tournament ready!</p>
+                <p class="price">&euro;19.99</p>
+                <a href="#" class="btn" onclick="openModal('Temp Spoofer', '19.99')">Purchase</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Purchase Product</h2>
+            <p id="productName"></p>
+            <p class="price">Price: €<span id="productPrice"></span></p>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                <input type="hidden" name="cmd" value="_xclick">
+                <input type="hidden" name="business" value="monkeyggbrolol@gmail.com">
+                <input type="hidden" name="item_name" id="paypalItemName">
+                <input type="hidden" name="amount" id="paypalAmount">
+                <input type="hidden" name="currency_code" value="EUR">
+                <input type="submit" class="paypal-button" value="Pay with PayPal">
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Global Cheats. All rights reserved.
+    </footer>
+
+    <script>
+        // Function to open modal and populate it with product details
+        function openModal(productName, price) {
+            document.getElementById('productName').textContent = productName;
+            document.getElementById('productPrice').textContent = price;
+            document.getElementById('paypalItemName').value = productName;
+            document.getElementById('paypalAmount').value = price.split(' - ')[0]; // Only using the first price in case of range
+            document.getElementById('purchaseModal').style.display = 'block';
+        }
+
+        // Function to close modal
+        function closeModal() {
+            document.getElementById('purchaseModal').style.display = 'none';
+        }
+
+        // Close modal if user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('purchaseModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
